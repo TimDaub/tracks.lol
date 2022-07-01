@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>web3 radio</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+  </head>
+  <body>
+    <h1>web3 music radio</h1>
+    <h2></h2>
+    <h3></h3>
+    <h4>Controls: Click/Touch to Play/Pause, Double Click to skip</h4>
+    <h5></h5>
+    <p>
+      built with data from
+      <a href="https://neume.network" target="_blank"> neume.network </a>
+    </p>
+    <audio style="display: none" controls>
+      <source src="" />
+    </audio>
+    <script defer type="application/javascript">
+      const data = [
+        {
+          title: "Fold Proof",
+          artist: "HENO.",
+          url: "https://neume.infura-ipfs.io/ipfs/bafybeifvz7e6qgi3gxjstdddfiql44ygpzu3o6qjov57khxctleqccdwqu",
+        },
+        {
+          title: "I Know",
+          artist: "IBN INGLOR",
+          url: "https://neume.infura-ipfs.io/ipfs/bafybeih75urpylnb6ivmwvpun5vwv6rgdeodyglrxpehiwt5ex6q6c4ani",
+        },
+      ];
+      const player = document.querySelector("audio");
+
+      function getRandomTrack() {
+        const index = getRandomInt(0, data.length - 1);
+        const { title, artist, url } = data[index];
+        document.querySelector("h2").innerText = artist;
+        document.querySelector("h3").innerText = `"${title}"`;
+        player.setAttribute("src", url);
+      }
+
+      function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      function clickHandler() {
+        if (player.paused) {
+          player.play();
+        } else {
+          player.pause();
+        }
+      }
+
+      function queue() {
+        getRandomTrack();
+        if (player.paused) {
+          player.play();
+        }
+      }
+
+      getRandomTrack();
+      document.querySelector(
+        "h5"
+      ).innerText = `Number of songs in data set: ${data.length}`;
+      document.addEventListener("click", clickHandler);
+      document.addEventListener("touch", clickHandler);
+      document.addEventListener("dblclick", queue);
+    </script>
+  </body>
+</html>
